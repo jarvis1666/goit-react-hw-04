@@ -1,10 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ImageModal } from "../ImageModal/ImageModal";
 import css from "../ImageCard/ImageCard.module.css";
 
 export const ImageCard = ({ onCardUrlSmall, onCardAlt, onCardUrlBig }) => {
-  let subtitle;
+  const subtitle = React.useRef(null);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -13,7 +13,9 @@ export const ImageCard = ({ onCardUrlSmall, onCardAlt, onCardUrlBig }) => {
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
+    if (subtitle.current) {
+      subtitle.style.color = "#f00";
+    }
   }
 
   function closeModal() {
